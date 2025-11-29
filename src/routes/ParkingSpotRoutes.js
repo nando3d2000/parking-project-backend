@@ -13,16 +13,13 @@ import {
 
 const router = Router();
 
-// Rutas para usuarios autenticados
 router.get("/", authenticateToken, getParkingSpots);
 router.get("/:id", authenticateToken, getParkingSpotById);
 
-// Rutas para cambio de estado (usuarios pueden reservar/cancelar, admins pueden cambiar cualquier estado)
 router.patch("/:id/status", authenticateToken, updateParkingSpotStatus);
 router.post("/:id/reserve", authenticateToken, reserveParkingSpot);
 router.delete("/:id/reservation", authenticateToken, cancelReservation);
 
-// Rutas solo para administradores (CRUD completo)
 router.post("/", authenticateToken, requireAdmin, createParkingSpot);
 router.put("/:id", authenticateToken, requireAdmin, updateParkingSpot);
 router.delete("/:id", authenticateToken, requireAdmin, deleteParkingSpot);

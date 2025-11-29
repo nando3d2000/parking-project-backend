@@ -71,7 +71,6 @@ const ParkingLot = sequelize.define("ParkingLot", {
     timestamps: true
 });
 
-// Método para obtener datos públicos del estacionamiento
 ParkingLot.prototype.getPublicData = function() {
     return {
         id: this.id,

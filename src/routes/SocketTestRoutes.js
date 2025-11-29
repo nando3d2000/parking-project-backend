@@ -4,12 +4,10 @@ import iotSimulator from '../services/IoTSimulatorService.js';
 
 const router = express.Router();
 
-// Endpoint para probar WebSocket (solo para desarrollo)
 router.get('/test-socket', (req, res) => {
     try {
         const connectionInfo = socketService.getConnectionInfo();
         
-        // Emitir evento de prueba
         socketService.emit('test-event', {
             message: 'Test desde endpoint REST',
             timestamp: new Date().toISOString(),
@@ -30,7 +28,6 @@ router.get('/test-socket', (req, res) => {
     }
 });
 
-// Endpoint para simular cambio de estado de spot (para pruebas)
 router.post('/simulate-spot-change/:spotId', (req, res) => {
     try {
         const { spotId } = req.params;
@@ -59,9 +56,6 @@ router.post('/simulate-spot-change/:spotId', (req, res) => {
     }
 });
 
-// =================== RUTAS DEL SIMULADOR IOT ===================
-
-// Iniciar simulador IoT
 router.post('/iot/start', (req, res) => {
     try {
         iotSimulator.startSimulation();
@@ -79,7 +73,6 @@ router.post('/iot/start', (req, res) => {
     }
 });
 
-// Detener simulador IoT
 router.post('/iot/stop', (req, res) => {
     try {
         iotSimulator.stopSimulation();
@@ -97,7 +90,6 @@ router.post('/iot/stop', (req, res) => {
     }
 });
 
-// Obtener estado del simulador
 router.get('/iot/status', (req, res) => {
     try {
         res.json({
@@ -114,7 +106,6 @@ router.get('/iot/status', (req, res) => {
     }
 });
 
-// Simular falla de sensor específico
 router.post('/iot/failure/:spotId', (req, res) => {
     try {
         const { spotId } = req.params;
@@ -133,7 +124,6 @@ router.post('/iot/failure/:spotId', (req, res) => {
     }
 });
 
-// Actualizar configuración del simulador
 router.put('/iot/config', (req, res) => {
     try {
         const newConfig = req.body;

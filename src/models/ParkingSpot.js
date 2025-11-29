@@ -10,7 +10,7 @@ const ParkingSpot = sequelize.define("ParkingSpot", {
     },
     code: {
         type: DataTypes.STRING,
-        allowNull: true, // Permitir null inicialmente
+        allowNull: true,
         unique: false,
         validate: {
             notEmpty: {
@@ -65,13 +65,11 @@ const ParkingSpot = sequelize.define("ParkingSpot", {
     timestamps: true,
     hooks: {
         beforeCreate: async (spot, options) => {
-            // Generar un código temporal único
             const prefix = spot.spotType === 'car' ? 'CAR' : 'MOTO';
             const timestamp = Date.now();
             spot.code = `${prefix}-${timestamp}`;
         },
         afterCreate: async (spot, options) => {
-            // Actualizar con el código final usando el ID
             const prefix = spot.spotType === 'car' ? 'CAR' : 'MOTO';
             const finalCode = `${prefix}-${spot.id}`;
             await spot.update({ code: finalCode }, { transaction: options.transaction });
@@ -79,7 +77,6 @@ const ParkingSpot = sequelize.define("ParkingSpot", {
     }
 });
 
-// Método para obtener datos públicos del spot
 ParkingSpot.prototype.getPublicData = function() {
     return {
         id: this.id,

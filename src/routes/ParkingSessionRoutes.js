@@ -12,14 +12,12 @@ import {
 
 const router = express.Router();
 
-// Rutas para usuarios (gestionar sus propias sesiones)
 router.post('/start', authenticateToken, startParkingSession);
 router.patch('/:id/end', authenticateToken, endParkingSession);
 router.get('/my-sessions', authenticateToken, getUserSessions);
 router.get('/active', authenticateToken, getActiveSession);
 router.get('/:id', authenticateToken, getSessionById);
 
-// Rutas para administradores (ver todas las sesiones y estadísticas)
 router.get('/', authenticateToken, requireAdmin, getAllSessions);
 router.get('/stats/summary', authenticateToken, requireAdmin, getSessionStats);
 

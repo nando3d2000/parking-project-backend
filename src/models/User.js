@@ -98,12 +98,10 @@ const User = sequelize.define("User", {
     }
 });
 
-// Método de instancia para verificar contraseñas
 User.prototype.validatePassword = async function(password) {
     return await bcrypt.compare(password, this.password);
 };
 
-// Método de instancia para obtener datos públicos del usuario
 User.prototype.getPublicData = function() {
     return {
         id: this.id,

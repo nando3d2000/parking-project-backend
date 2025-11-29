@@ -92,7 +92,6 @@ const ParkingSession = sequelize.define("ParkingSession", {
     ]
 });
 
-// Método para calcular la duración de la sesión
 ParkingSession.prototype.getDuration = function() {
     const start = new Date(this.startTime);
     const end = this.endTime ? new Date(this.endTime) : new Date();
@@ -110,7 +109,6 @@ ParkingSession.prototype.getDuration = function() {
     };
 };
 
-// Método para finalizar la sesión
 ParkingSession.prototype.endSession = async function(amount = null) {
     this.endTime = new Date();
     this.isActive = false;
@@ -121,7 +119,6 @@ ParkingSession.prototype.endSession = async function(amount = null) {
     return this;
 };
 
-// Método para obtener datos públicos de la sesión
 ParkingSession.prototype.getPublicData = function() {
     return {
         id: this.id,
